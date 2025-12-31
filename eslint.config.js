@@ -3,13 +3,14 @@ import { includeIgnoreFile } from '@eslint/compat'
 import globals from 'globals'
 import svelte from 'eslint-plugin-svelte'
 import svelteConfig from './svelte.config.js'
-import { defineConfig } from 'eslint/config'
+import { defineConfig, globalIgnores } from 'eslint/config'
 import { fileURLToPath } from 'node:url'
 
 const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url))
 
 export default defineConfig([
   includeIgnoreFile(gitignorePath, 'Imported .gitignore patterns'),
+  globalIgnores(['src/lib/vendors/**/*', 'wasm/**/*']),
   js.configs.recommended,
   ...svelte.configs.recommended,
   {
