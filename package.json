@@ -22,5 +22,10 @@
 		"globals": "^16.5.0",
 		"svelte": "^5.45.6",
 		"vite": "^7.2.6"
+	},
+	"dependencies": {
+		"comlink": "^4.4.2",
+		"postcss-import": "^16.1.1",
+		"postcss-preset-env": "^10.6.0"
 	}
 }
