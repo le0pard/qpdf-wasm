@@ -1,5 +1,5 @@
 <script>
-	import '$lib/styles/globals.css';
+	import '$lib/styles/globals.css'
 
 	let { children } = $props()
 </script>

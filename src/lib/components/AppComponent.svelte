@@ -1,7 +1,7 @@
 <script>
   import SplitViewComponent from '$lib/components/SplitViewComponent.svelte'
 
-  import { onMount, onDestroy, setContext } from 'svelte'
+  import { onDestroy, setContext } from 'svelte'
   import { splitState } from '$lib/stores/split'
 
   let { webWorkerObject } = $props()
