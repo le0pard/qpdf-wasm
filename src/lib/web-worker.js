@@ -38,6 +38,7 @@ const workerApi = {
           `--password-file=${PASSWORD_FILE}`
         ]
       }
+
       if (options.compress) {
         command = [
           ...command,
@@ -55,8 +56,6 @@ const workerApi = {
       }
 
       command = [...command, IN_FILE, OUT_FILE]
-
-      console.log('command', command)
       exitCode = qpdfInstance.callMain(command)
 
       const resultView = FS.readFile(OUT_FILE)

@@ -1,6 +1,7 @@
 <script>
   import SplitView from '$lib/components/SplitView.svelte'
   import QpdfSettings from '$lib/components/QpdfSettings.svelte'
+  import PdfView from '$lib/components/PdfView.svelte'
 
   import { terminateWorker } from '$lib/worker-service'
   import { onDestroy } from 'svelte'
@@ -20,7 +21,7 @@
   </div>
   <SplitView />
   <div class="app-pdf-view" class:app-pdf-view-hidden={splitState.visibleLeft()}>
-    <h1>Test</h1>
+    <PdfView />
   </div>
 </div>
 

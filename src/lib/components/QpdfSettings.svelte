@@ -2,6 +2,7 @@
   import { onDestroy } from 'svelte'
   import { transfer } from 'comlink'
   import { filesState } from '$lib/states/files.svelte'
+  import { pdfUrlState } from '$lib/states/pdfUrl.svelte'
 
   let { webWorkerObject } = $props()
 
@@ -31,9 +32,9 @@
 
       if (result[0]) {
         const blob = new Blob([result[2]], { type: 'application/pdf' })
-        if (downloadUrl) URL.revokeObjectURL(downloadUrl)
+        if (pdfUrlState.url) URL.revokeObjectURL(pdfUrlState.url)
 
-        downloadUrl = URL.createObjectURL(blob)
+        pdfUrlState.url = URL.createObjectURL(blob)
 
         console.log('downloadUrl', downloadUrl)
         fileUrl = downloadUrl
