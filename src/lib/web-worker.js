@@ -63,7 +63,7 @@ const workerApi = {
         FS.unlink(PASSWORD_FILE)
       }
 
-      const resultBuffer = resultView.buffer;
+      const resultBuffer = resultView.buffer
       return [
         true,
         exitCode,

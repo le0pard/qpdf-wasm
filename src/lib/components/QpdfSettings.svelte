@@ -1,6 +1,6 @@
 <script>
   import { onDestroy } from 'svelte'
-  import { wrap, transfer } from 'comlink'
+  import { transfer } from 'comlink'
   import { filesState } from '$lib/states/files.svelte'
 
   let { webWorkerObject } = $props()
