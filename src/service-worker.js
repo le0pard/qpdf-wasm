@@ -19,7 +19,6 @@ self.addEventListener('install', (event) => {
 })
 
 self.addEventListener('activate', (event) => {
-  // Remove previous cached data from disk
   const deleteOldCaches = async () => {
     for (const key of await caches.keys()) {
       if (key !== CACHE) await caches.delete(key)

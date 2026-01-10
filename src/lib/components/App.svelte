@@ -1,26 +1,25 @@
 <script>
-  import SplitViewComponent from '$lib/components/SplitViewComponent.svelte'
+  import SplitView from '$lib/components/SplitView.svelte'
+  import QpdfSettings from '$lib/components/QpdfSettings.svelte'
 
-  import { onDestroy, setContext } from 'svelte'
-  import { splitState } from '$lib/stores/split'
+  import { terminateWorker } from '$lib/worker-service'
+  import { onDestroy } from 'svelte'
+  import { splitState } from '$lib/states/split.svelte'
 
   let { webWorkerObject } = $props()
 
-  setContext('ww', {
-    getWebWorker: () => webWorkerObject
-  })
-
   onDestroy(() => {
     splitState.reset()
+    terminateWorker()
   })
 </script>
 
 <div class="app-view">
-  <div class="app-controls" class:app-controls-hidden={$splitState.visible === 'right'}>
-    <h1>Test</h1>
+  <div class="app-controls" class:app-controls-hidden={splitState.visibleRight()}>
+    <QpdfSettings webWorkerObject={webWorkerObject} />
   </div>
-  <SplitViewComponent />
-  <div class="app-pdf-view" class:app-pdf-view-hidden={$splitState.visible === 'left'}>
+  <SplitView />
+  <div class="app-pdf-view" class:app-pdf-view-hidden={splitState.visibleLeft()}>
     <h1>Test</h1>
   </div>
 </div>

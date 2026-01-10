@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte'
-  import { splitState, screenSizeMinMedia } from '$lib/stores/split'
+  import { splitState, screenSizeMinMedia } from '$lib/states/split.svelte'
 
   const onScreenSizeMinMediaChange = (e) => {
     if (e.matches) {
@@ -50,7 +50,7 @@
     tabindex="0"
     role="button"
     class="split-left"
-    class:split-hidden={$splitState.visible === 'right'}
+    class:split-hidden={splitState.visibleRight()}
   >
     <i class="arrow-left"></i>
   </div>
@@ -60,7 +60,7 @@
     tabindex="0"
     role="button"
     class="split-right"
-    class:split-hidden={$splitState.visible === 'left'}
+    class:split-hidden={splitState.visibleLeft()}
   >
     <i class="arrow-right"></i>
   </div>
