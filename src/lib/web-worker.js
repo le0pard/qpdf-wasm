@@ -16,15 +16,18 @@ const workerApi = {
     }
 
     const FS = qpdfInstance.FS
-    const IN_FILE = 'input.pdf'
-    const OUT_FILE = 'output.pdf'
-    const PASSWORD_FILE = 'password.txt'
+    const IN_FILE = `in_${crypto.randomUUID()}.pdf`
+    const OUT_FILE = `out_${crypto.randomUUID()}.pdf`
+    const PASSWORD_FILE = `pass_${crypto.randomUUID()}.txt`
     let exitCode = 0
 
     try {
       FS.writeFile(IN_FILE, new Uint8Array(pdfBuffer))
 
-      let command = []
+      let command = [
+        '--no-warn',
+        '--warning-exit-0'
+      ]
 
       if (options.password) {
         FS.writeFile(PASSWORD_FILE, options.password)
@@ -53,15 +56,10 @@ const workerApi = {
 
       command = [...command, IN_FILE, OUT_FILE]
 
+      console.log('command', command)
       exitCode = qpdfInstance.callMain(command)
 
       const resultView = FS.readFile(OUT_FILE)
-
-      FS.unlink(IN_FILE)
-      FS.unlink(OUT_FILE)
-      if (options.password) {
-        FS.unlink(PASSWORD_FILE)
-      }
 
       const resultBuffer = resultView.buffer
       return [
@@ -75,6 +73,14 @@ const workerApi = {
         exitCode,
         err
       ]
+    } finally {
+
+      FS.unlink(IN_FILE)
+      FS.unlink(OUT_FILE)
+      if (options.password) {
+        FS.unlink(PASSWORD_FILE)
+      }
+
     }
   }
 }

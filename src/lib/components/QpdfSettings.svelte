@@ -38,10 +38,10 @@
         console.log('downloadUrl', downloadUrl)
         fileUrl = downloadUrl
       } else {
-        console.log(result[1], result[2])
+        console.log('error', result[1], result[2])
       }
     } catch(err) {
-      console.error('Svelte Worker Error:', err)
+      console.log('Svelte Worker Error:', err)
     }
   }
 
