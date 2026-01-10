@@ -7,7 +7,6 @@
   let { webWorkerObject } = $props()
 
   let pdfPassword = $state(null)
-  let downloadUrl = null
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -35,8 +34,10 @@
           URL.revokeObjectURL(pdfInfoState.url)
         }
 
+        pdfInfoState.name = file.name
+        pdfInfoState.inputBytesize = file.size
         pdfInfoState.url = URL.createObjectURL(blob)
-        pdfInfoState.bytesize = result[2].byteLength
+        pdfInfoState.outputBytesize = result[2].byteLength
       } else {
         console.log('error', result[1], result[2])
       }
@@ -64,7 +65,6 @@
     />
 
     <input type="password" bind:value={pdfPassword} />
-
 
     <button type="submit">Upload & Convert</button>
   </form>

@@ -1,4 +1,6 @@
 export const pdfInfoState = $state({
+  name: null,
   url: null,
-  bytesize: 0
+  outputBytesize: 0,
+  inputBytesize: 0
 })

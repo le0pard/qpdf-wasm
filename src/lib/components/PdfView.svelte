@@ -15,7 +15,7 @@
         if (newUrl) {
           pdfObject.embed(newUrl, node)
         } else {
-          node.innerContent = ''
+          node.textContent = ''
         }
       }
     }
