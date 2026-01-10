@@ -1,6 +1,6 @@
 <script>
   import pdfObject from 'pdfobject'
-  import { pdfUrlState } from '$lib/states/pdfUrl.svelte'
+  import { pdfInfoState } from '$lib/states/pdfInfo.svelte'
 
   const embedPdf = (node, url) => {
     if (url) {
@@ -22,10 +22,10 @@
   }
 </script>
 
-{#if pdfUrlState.url}
+{#if pdfInfoState.url}
   <div
     class="pdf-viewer"
-    use:embedPdf={pdfUrlState.url}
+    use:embedPdf={pdfInfoState.url}
   ></div>
 {/if}
 

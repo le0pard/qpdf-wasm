@@ -2,13 +2,12 @@
   import { onDestroy } from 'svelte'
   import { transfer } from 'comlink'
   import { filesState } from '$lib/states/files.svelte'
-  import { pdfUrlState } from '$lib/states/pdfUrl.svelte'
+  import { pdfInfoState } from '$lib/states/pdfInfo.svelte'
 
   let { webWorkerObject } = $props()
 
   let pdfPassword = $state(null)
   let downloadUrl = null
-  let fileUrl = $state(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -26,18 +25,18 @@
         transfer(buffer, [buffer]),
         {
           password: pdfPassword,
-          compress: true
+          compress: false
         }
       )
 
       if (result[0]) {
         const blob = new Blob([result[2]], { type: 'application/pdf' })
-        if (pdfUrlState.url) URL.revokeObjectURL(pdfUrlState.url)
+        if (pdfInfoState.url) {
+          URL.revokeObjectURL(pdfInfoState.url)
+        }
 
-        pdfUrlState.url = URL.createObjectURL(blob)
-
-        console.log('downloadUrl', downloadUrl)
-        fileUrl = downloadUrl
+        pdfInfoState.url = URL.createObjectURL(blob)
+        pdfInfoState.bytesize = result[2].byteLength
       } else {
         console.log('error', result[1], result[2])
       }
@@ -47,8 +46,8 @@
   }
 
   onDestroy(() => {
-    if (downloadUrl) {
-      URL.revokeObjectURL(downloadUrl)
+    if (pdfInfoState.url) {
+      URL.revokeObjectURL(pdfInfoState.url)
     }
   })
 </script>
@@ -70,7 +69,7 @@
     <button type="submit">Upload & Convert</button>
   </form>
 
-  <a download="output.pdf" href={fileUrl}>Download</a>
+  <a download="output.pdf" href={pdfInfoState.url}>Download</a>
 
 {:catch error}
   <Error title="Error to load wasm" message={error.toString()} />
