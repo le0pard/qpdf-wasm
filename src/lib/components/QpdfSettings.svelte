@@ -6,7 +6,29 @@
 
   let { webWorkerObject } = $props()
 
+  let isFileNeeePassword = $state(false)
   let pdfPassword = $state(null)
+  let pdfCompression = $state('linearization')
+
+  const handleFileChange = async (e) => {
+    if (!filesState.list || filesState.list.length === 0) {
+      return
+    }
+
+    const file = filesState.list[0]
+
+    try {
+      const buffer = await file.arrayBuffer()
+
+      const result = await webWorkerObject.checkPdfFile(
+        transfer(buffer, [buffer])
+      )
+
+      isFileNeeePassword = !!(result?.encrypted)
+    } catch(e) {
+      console.log('Svelte Worker Error:', err)
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -24,7 +46,7 @@
         transfer(buffer, [buffer]),
         {
           password: pdfPassword,
-          compress: false
+          compress: (pdfCompression === 'compression')
         }
       )
 
@@ -62,15 +84,20 @@
       type="file"
       accept="application/pdf"
       bind:files={filesState.list}
+      onchange={handleFileChange}
     />
 
-    <input type="password" bind:value={pdfPassword} />
+    {#if isFileNeeePassword}
+      <input type="password" bind:value={pdfPassword} />
+    {/if}
 
-    <button type="submit">Upload & Convert</button>
+    <select bind:value={pdfCompression}>
+      <option value="linearization">Web optimize PDF file</option>
+      <option value="compression">Compress PDF file</option>
+    </select>
+
+    <button type="submit">Convert</button>
   </form>
-
-  <a download="output.pdf" href={pdfInfoState.url}>Download</a>
-
 {:catch error}
   <Error title="Error to load wasm" message={error.toString()} />
 {/await}

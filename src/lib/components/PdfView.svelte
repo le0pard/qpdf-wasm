@@ -23,15 +23,35 @@
 </script>
 
 {#if pdfInfoState.url}
-  <div
-    class="pdf-viewer"
-    use:embedPdf={pdfInfoState.url}
-  ></div>
+  <div class="pdf-results">
+    <div
+      class="pdf-viewer"
+      use:embedPdf={pdfInfoState.url}
+    ></div>
+    <div class="pdf-actions">
+      <a download={pdfInfoState.name} href={pdfInfoState.url}>
+        Download
+      </a>
+    </div>
+  </div>
 {/if}
 
 <style>
+  .pdf-results {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex: 1;
+  }
+
   .pdf-viewer {
     flex-grow: 1;
     width: 100%;
+  }
+
+  .pdf-actions {
+    flex-shrink: 0;
+    overflow: hidden;
+    white-space: nowrap;
   }
 </style>
