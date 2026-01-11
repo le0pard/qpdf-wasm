@@ -30,7 +30,7 @@
     ></div>
     <div class="pdf-actions">
       <a download={pdfInfoState.name} href={pdfInfoState.url}>
-        Download
+        Download ({pdfInfoState.outputBytesize} bytes)
       </a>
     </div>
   </div>
