@@ -1,4 +1,4 @@
-FROM emscripten/emsdk:4.0.22 AS qpdf
+FROM emscripten/emsdk:4.0.23 AS qpdf
 
 RUN apt-get update -qq && \
     apt-get install -qq --no-install-recommends autoconf git pkg-config
