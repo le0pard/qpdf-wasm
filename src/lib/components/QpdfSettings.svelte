@@ -91,10 +91,14 @@
       <input type="password" bind:value={pdfPassword} />
     {/if}
 
-    <select bind:value={pdfCompression}>
-      <option value="linearization">Web optimize PDF file</option>
-      <option value="compression">Compress PDF file</option>
-    </select>
+    <div>
+      <label for="linearizationRadio">Web optimize PDF file</label>
+      <input id="linearizationRadio" type="radio" name="pdfCompression" value="linearization" bind:group={pdfCompression} />
+    </div>
+    <div>
+      <label for="lcompressionRadio">Compress PDF file</label>
+      <input id="lcompressionRadio" type="radio" name="pdfCompression" value="compression" bind:group={pdfCompression} />
+    </div>
 
     <button type="submit">Convert</button>
   </form>
