@@ -6,7 +6,7 @@ let qpdfInstance = null
 const safeUnlink = (FS, filePath) => {
   try {
     FS.unlink(filePath)
-  } catch (e) {
+  } catch {
     // Ignore error if file doesn't exist
   }
 }
@@ -34,7 +34,7 @@ const qpdfExitCode = (pdfBuffer, command) => {
       true,
       exitCode
     ]
-  } catch (err) {
+  } catch {
     return [false, exitCode]
   } finally {
     safeUnlink(FS, IN_FILE)

@@ -29,7 +29,7 @@
       use:embedPdf={pdfInfoState.url}
     ></div>
     <div class="pdf-actions">
-      <a download={pdfInfoState.name} href={pdfInfoState.url}>
+      <a download={pdfInfoState.name} href={pdfInfoState.url} rel="external">
         Download ({pdfInfoState.outputBytesize} bytes)
       </a>
     </div>
