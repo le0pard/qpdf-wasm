@@ -3,6 +3,14 @@ import { expose, transfer } from 'comlink'
 
 let qpdfInstance = null
 
+const safeUnlink = (FS, filePath) => {
+  try {
+    FS.unlink(filePath)
+  } catch (e) {
+    // Ignore error if file doesn't exist
+  }
+}
+
 const qpdfExitCode = (pdfBuffer, command) => {
   if (!qpdfInstance) {
     return
@@ -29,7 +37,7 @@ const qpdfExitCode = (pdfBuffer, command) => {
   } catch (err) {
     return [false, exitCode]
   } finally {
-    FS.unlink(IN_FILE)
+    safeUnlink(FS, IN_FILE)
   }
 }
 
@@ -64,15 +72,15 @@ const qpdfProcessFile = (pdfBuffer, command) => {
       err
     ]
   } finally {
-    FS.unlink(IN_FILE)
-    FS.unlink(OUT_FILE)
+    safeUnlink(FS, IN_FILE)
+    safeUnlink(FS, OUT_FILE)
   }
 }
 
 const workerApi = {
-  async init() {
+  async init(wasmUrl) {
     qpdfInstance = await createModule({
-      locateFile: () => '/qpdf.wasm'
+      locateFile: () => wasmUrl || '/qpdf.wasm'
     })
   },
 
@@ -137,7 +145,7 @@ const workerApi = {
       return [false, 0, err]
     } finally {
       if (options.password) {
-        FS.unlink(PASSWORD_FILE)
+        safeUnlink(FS, PASSWORD_FILE)
       }
     }
   }

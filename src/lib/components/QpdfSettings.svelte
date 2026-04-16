@@ -25,7 +25,7 @@
       )
 
       isFileNeeePassword = !!(result?.encrypted)
-    } catch(e) {
+    } catch(err) {
       console.log('Svelte Worker Error:', err)
     }
   }
@@ -75,7 +75,7 @@
   })
 </script>
 
-{#await webWorkerObject.init()}
+{#await webWorkerObject.init('/qpdf.wasm')}
   <div>loading...</div>
 {:then}
 

@@ -51,7 +51,9 @@ self.addEventListener('fetch', (event) => {
         throw new Error('invalid response from fetch')
       }
 
-      if (response.status === 200) {
+      const isSameOrigin = url.origin === self.location.origin
+
+      if (response.status === 200 && isSameOrigin) {
         cache.put(event.request, response.clone())
       }
 
