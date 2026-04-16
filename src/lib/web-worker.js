@@ -104,7 +104,7 @@ const workerApi = {
     }
   },
 
-  async processPdf(pdfBuffer, options = {}) {
+  processPdf(pdfBuffer, options = {}, onProgress = () => {}) {
     if (!qpdfInstance) {
       return
     }
@@ -143,7 +143,7 @@ const workerApi = {
           '--linearize'
         ]
       }
-      return qpdfProcessFile(pdfBuffer, command)
+      return qpdfProcessFile(pdfBuffer, command, onProgress)
     } catch(err) {
       return [false, 0, err]
     } finally {
