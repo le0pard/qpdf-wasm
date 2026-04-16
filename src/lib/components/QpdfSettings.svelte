@@ -14,7 +14,6 @@
   let progressMessage = $state('')
 
   const onProgressCallback = proxy((msg) => {
-    console.log('Worker says:', msg)
     progressMessage = msg
   })
 
@@ -57,7 +56,7 @@
     try {
       const buffer = await file.arrayBuffer()
 
-      progressMessage = 'Trasfer file to web worker...'
+      progressMessage = 'Transfer pdf to web worker...'
       const result = await webWorkerObject.processPdf(
         transfer(buffer, [buffer]),
         {
