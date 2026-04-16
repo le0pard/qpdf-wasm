@@ -12,6 +12,7 @@
   let pdfCompression = $state('linearization')
   let isProcessing = $state(false)
   let progressMessage = $state('')
+  let errorMessage = $state(null)
 
   const onProgressCallback = proxy((msg) => {
     progressMessage = msg
@@ -52,6 +53,7 @@
     const file = filesState.list[0]
     isProcessing = true
     progressMessage = 'Preparing to process...'
+    errorMessage = null
 
     try {
       const buffer = await file.arrayBuffer()
@@ -77,10 +79,10 @@
         pdfInfoState.url = URL.createObjectURL(blob)
         pdfInfoState.outputBytesize = result[2].byteLength
       } else {
-        console.log('error', result[1], result[2])
+        errorMessage = result[2]?.toString()
       }
     } catch(err) {
-      console.log('Svelte Worker Error:', err)
+      errorMessage = err.toString()
     } finally {
       isProcessing = false
       progressMessage = ''
@@ -136,6 +138,12 @@
         </div>
       </div>
     {/if}
+
+    {#if errorMessage}
+      <div class="error-container">
+        <div class="error-text">{errorMessage}</div>
+      </div>
+    {/if}
   </form>
 {:catch error}
   <Error title="Error to load wasm" message={error.toString()} />
@@ -176,7 +184,7 @@
   }
 
   .progress-container {
-    margin-top: 1rem;
+    margin: 1rem;
     padding: 1rem;
     border: 1px solid var(--input-border);
     border-radius: 0.25rem;
