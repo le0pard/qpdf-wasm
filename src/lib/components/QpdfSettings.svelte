@@ -100,7 +100,7 @@
   <div>loading...</div>
 {:then}
 
-  <form onsubmit={handleSubmit}>
+  <form class="form" onsubmit={handleSubmit}>
     <DropFile accept="application/pdf" onDrop={onDrop} hasFiles={filesState.list.length > 0}>
       {#if filesState.list.length > 0}
         <div class="file-list-wrapper">
@@ -141,7 +141,7 @@
 
     {#if errorMessage}
       <div class="error-container">
-        <div class="error-text">{errorMessage}</div>
+        {errorMessage}
       </div>
     {/if}
   </form>
@@ -150,6 +150,10 @@
 {/await}
 
 <style>
+  .form {
+    margin: 0.5rem;
+  }
+
   .file-list-wrapper {
     display: flex;
     height: 100%;
@@ -184,7 +188,7 @@
   }
 
   .progress-container {
-    margin: 1rem;
+    margin-top: 1rem;
     padding: 1rem;
     border: 1px solid var(--input-border);
     border-radius: 0.25rem;
@@ -199,7 +203,7 @@
 
   .progress-bar {
     width: 100%;
-    height: 8px;
+    height: 0.5rem;
     background-color: var(--heads-color);
     border-radius: 4px;
     overflow: hidden;
@@ -219,5 +223,13 @@
   @keyframes slide {
     0% { left: -30%; }
     100% { left: 100%; }
+  }
+
+  .error-container {
+    display: flex;
+    margin: 1rem;
+    background-color: var(--bg-color);
+    border-radius: 0.4rem;
+    color: #d33682;
   }
 </style>
