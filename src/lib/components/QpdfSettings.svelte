@@ -1,6 +1,6 @@
 <script>
   import { onDestroy } from 'svelte'
-  import { transfer } from 'comlink'
+  import { transfer, proxy } from 'comlink'
   import DropFile from './DropFile.svelte'
   import { filesState } from '$lib/states/files.svelte'
   import { pdfInfoState } from '$lib/states/pdfInfo.svelte'
@@ -10,6 +10,8 @@
   let isFileNeeePassword = $state(false)
   let pdfPassword = $state(null)
   let pdfCompression = $state('linearization')
+  let isProcessing = $state(false)
+  let progressMessage = $state('')
 
   const onDrop = async (files = []) => {
     if (!files || files.length === 0) {
@@ -44,6 +46,8 @@
     }
 
     const file = filesState.list[0]
+    isProcessing = true
+    progressMessage = 'Preparing to process...'
 
     try {
       const buffer = await file.arrayBuffer()
@@ -53,7 +57,10 @@
         {
           password: pdfPassword,
           compress: (pdfCompression === 'compression')
-        }
+        },
+        proxy((msg) => {
+          progressMessage = msg
+        })
       )
 
       if (result[0]) {
@@ -71,6 +78,9 @@
       }
     } catch(err) {
       console.log('Svelte Worker Error:', err)
+    } finally {
+      isProcessing = false
+      progressMessage = ''
     }
   }
 
@@ -113,7 +123,16 @@
       <input id="compressionRadio" type="radio" name="pdfCompression" value="compression" bind:group={pdfCompression} />
     </div>
 
-    <button type="submit" disabled={filesState.list.length === 0}>Convert</button>
+    <button type="submit" disabled={isProcessing || filesState.list.length === 0}>{isProcessing ? 'Processing...' : 'Convert'}</button>
+
+    {#if isProcessing}
+      <div class="progress-container">
+        <div class="progress-text">{progressMessage}</div>
+        <div class="progress-bar">
+          <div class="progress-bar-inner"></div>
+        </div>
+      </div>
+    {/if}
   </form>
 {:catch error}
   <Error title="Error to load wasm" message={error.toString()} />
@@ -153,12 +172,41 @@
     background-color: var(--bg-color);
   }
 
-  /* Modern scrollbar for the list */
-  .file-list-wrapper ul::-webkit-scrollbar {
-    width: 6px;
+  .progress-container {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--input-border);
+    border-radius: 0.25rem;
   }
-  .file-list-wrapper ul::-webkit-scrollbar-thumb {
-    background-color: #d1d5db;
-    border-radius: 10px;
+
+  .progress-text {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: #cb4b16;
+    font-weight: 500;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: var(--heads-color);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Indeterminate sliding animation */
+  .progress-bar-inner {
+    height: 100%;
+    width: 30%;
+    background-color: #268bd2;
+    border-radius: 4px;
+    position: absolute;
+    animation: slide 1.5s infinite ease-in-out;
+  }
+
+  @keyframes slide {
+    0% { left: -30%; }
+    100% { left: 100%; }
   }
 </style>

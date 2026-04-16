@@ -41,9 +41,9 @@ const qpdfExitCode = (pdfBuffer, command) => {
   }
 }
 
-const qpdfProcessFile = (pdfBuffer, command) => {
+const qpdfProcessFile = (pdfBuffer, command, onProgress = () => {}) => {
   if (!qpdfInstance) {
-    return
+    return [false, 0, new Error('QPDF not initialized')]
   }
 
   const FS = qpdfInstance.FS
@@ -52,11 +52,14 @@ const qpdfProcessFile = (pdfBuffer, command) => {
   let exitCode = 0
 
   try {
+    onProgress('Writing file to worker memory...')
     FS.writeFile(IN_FILE, new Uint8Array(pdfBuffer))
 
+    onProgress('Optimizing PDF (this may take a moment)...')
     command = [...command, IN_FILE, OUT_FILE]
     exitCode = qpdfInstance.callMain(command)
 
+    onProgress('Extracting optimized file...')
     const resultView = FS.readFile(OUT_FILE)
 
     const resultBuffer = resultView.buffer
