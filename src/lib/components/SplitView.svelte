@@ -75,8 +75,7 @@
   .split-left,
   .split-right {
     align-items: center;
-    background-color: var(--splitBgColor);
-    color: var(--splitColor);
+    background-color: var(--color-neutral-content);
     cursor: pointer;
     display: flex;
     flex: 1;
@@ -85,28 +84,28 @@
   }
 
   .split-left {
-    border-left: 1px solid var(--splitBorderColor);
-    border-right: 1px solid var(--splitBorderColor);
+    border-left: 1px solid var(--color-neutral);
+    border-right: 1px solid var(--color-neutral);
   }
 
   .split-right {
-    border-right: 1px solid var(--splitBorderColor);
+    border-right: 1px solid var(--color-neutral);
   }
 
   .split-left:hover,
   .split-right:hover {
-    background-color: var(--splitBgHoverColor);
+    background-color: var(--color-base-300);
   }
 
   .split-left:active,
   .split-right:active {
-    background-color: var(--splitBgHoverColor);
+    background-color: var(--color-base-300);
   }
 
   .arrow-left,
   .arrow-right {
     border-style: solid;
-    border-color: var(--splitColor);
+    border-color: var(--color-primary);
     border-width: 0 2px 2px 0;
     display: inline-block;
     padding: 2px;
@@ -114,7 +113,7 @@
 
   .split-left:hover .arrow-left,
   .split-right:hover .arrow-right {
-    border-color: var(--splitHoverColor);
+    border-color: color-mix(in oklab, var(--color-primary) 80%, #000);
   }
 
   .arrow-left {

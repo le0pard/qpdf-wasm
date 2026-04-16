@@ -26,7 +26,7 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
-    background-color: var(--cardBgColor);
+    background-color: var(--color-base-200);
     border-radius: 0.4rem;
   }
 
@@ -35,7 +35,7 @@
   }
 
   .error-msg-text {
-    color: var(--cardBaseColor);
+    color: var(--color-base-content);
     font-weight: 500;
   }
 </style>

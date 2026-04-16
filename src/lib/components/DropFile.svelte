@@ -102,7 +102,7 @@
     height: 15rem;
     cursor: pointer;
     outline: none;
-    border: 1px dashed black;
+    border: 1px dashed var(--color-neutral);
     border-radius: 0.25rem;
   }
   #zone.disabled {

@@ -141,17 +141,16 @@
     align-items: center;
     padding: 0.5rem 0.75rem;
     margin-bottom: 0.25rem;
-    background-color: #ffffff;
-    border: 1px solid #f3f4f6;
+    background-color: var(--color-base-100);
+    border: 1px solid var(--color-neutral);
     border-radius: 4px;
     font-size: 0.875rem;
-    color: #4b5563;
+    color: var(--color-neutral);
     transition: background-color 0.2s;
   }
 
   .file-item:hover {
-    background-color: #f3f4f6;
-    border-color: #d1d5db;
+    background-color: var(--color-neutral-content);
   }
 
   /* Modern scrollbar for the list */

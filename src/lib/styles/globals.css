@@ -43,73 +43,51 @@ select {
 
 /* defaults */
 :root {
-  --baseColor: #181c32;
-  --bgColor: #f9fafb;
-  --headColor: #5e6278;
-  --headHoverColor: #04c8c8;
-  --headBgColor: #fff;
-  --headBorderColor: #eff2f5;
-  --linkColor: #04aa77;
-  --linkHoverColor: #36d3d3;
-  --cardBgColor: #fff;
-  --cardBaseColor: #7e8299;
-  --successColor: #04c8c8;
-  --successBgColor: #dcfdfd;
-  --warningColor: #d9a900;
-  --warningBgColor: #fff8dd;
-  --errorColor: #f1416c;
-  --errorBgColor: #fff5f8;
-  --clientColor: #3f4254;
-  --buttonColor: #fff;
-  --buttonBgColor: #0bb783;
-  --buttonBgHoverColor: #04aa77;
-  --buttonBgActiveColor: #00afaf;
-  --mutedButtonColor: #5e6278;
-  --mutedButtonBgColor: #f5f8fa;
-  --mutedButtonHoverColor: #fff;
-  --mutedButtonHoverBgColor: #7e8299;
-  --octocatColor: #5e6278;
-  --octocatHoverColor: #3f4254;
-  --splitColor: #7e8299;
-  --splitHoverColor: #04c8c8;
-  --splitBgColor: #f5f8fa;
-  --splitBgHoverColor: #dcfdfd;
-  --splitBorderColor: #e4e6ef;
+  --color-base-100: oklch(100% 0 0);
+  --color-base-200: oklch(98% 0 0);
+  --color-base-300: oklch(95% 0 0);
+  --color-base-content: oklch(21% 0.006 285.885);
+  --color-primary: oklch(45% 0.24 277.023);
+  --color-primary-content: oklch(93% 0.034 272.788);
+  --color-secondary: oklch(65% 0.241 354.308);
+  --color-secondary-content: oklch(94% 0.028 342.258);
+  --color-accent: oklch(77% 0.152 181.912);
+  --color-accent-content: oklch(38% 0.063 188.416);
+  --color-neutral: oklch(14% 0.005 285.823);
+  --color-neutral-content: oklch(92% 0.004 286.32);
+  --color-info: oklch(74% 0.16 232.661);
+  --color-info-content: oklch(29% 0.066 243.157);
+  --color-success: oklch(76% 0.177 163.223);
+  --color-success-content: oklch(37% 0.077 168.94);
+  --color-warning: oklch(82% 0.189 84.429);
+  --color-warning-content: oklch(41% 0.112 45.904);
+  --color-error: oklch(71% 0.194 13.428);
+  --color-error-content: oklch(27% 0.105 12.094);
 }
 
-:root.dark {
-  --baseColor: #fff;
-  --bgColor: #151521;
-  --headColor: #92929f;
-  --headHoverColor: #0bb783;
-  --headBgColor: #1e1e2d;
-  --headBorderColor: #2b2b40;
-  --linkColor: #04aa77;
-  --linkHoverColor: #36d3d3;
-  --cardBgColor: #282c34;
-  --cardBaseColor: #8a8a9c;
-  --successColor: #0bb783;
-  --successBgColor: #1c3238;
-  --warningColor: #d9a900;
-  --warningBgColor: #392f28;
-  --errorColor: #f64e60;
-  --errorBgColor: #3a2434;
-  --clientColor: #cdcdde;
-  --buttonColor: #fff;
-  --buttonBgColor: #0bb783;
-  --buttonBgHoverColor: #04aa77;
-  --buttonBgActiveColor: #00afaf;
-  --mutedButtonColor: #92929f;
-  --mutedButtonBgColor: #1b1b29;
-  --mutedButtonHoverColor: #cdcdde;
-  --mutedButtonHoverBgColor: #323248;
-  --octocatColor: #92929f;
-  --octocatHoverColor: #cdcdde;
-  --splitColor: #cdcdde;
-  --splitHoverColor: #0bb783;
-  --splitBgColor: #1b1b29;
-  --splitBgHoverColor: #1c3238;
-  --splitBorderColor: #323248;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-base-100: oklch(25.33% 0.016 252.42);
+    --color-base-200: oklch(23.26% 0.014 253.1);
+    --color-base-300: oklch(21.15% 0.012 254.09);
+    --color-base-content: oklch(97.807% 0.029 256.847);
+    --color-primary: oklch(58% 0.233 277.117);
+    --color-primary-content: oklch(96% 0.018 272.314);
+    --color-secondary: oklch(65% 0.241 354.308);
+    --color-secondary-content: oklch(94% 0.028 342.258);
+    --color-accent: oklch(77% 0.152 181.912);
+    --color-accent-content: oklch(38% 0.063 188.416);
+    --color-neutral: oklch(14% 0.005 285.823);
+    --color-neutral-content: oklch(92% 0.004 286.32);
+    --color-info: oklch(74% 0.16 232.661);
+    --color-info-content: oklch(29% 0.066 243.157);
+    --color-success: oklch(76% 0.177 163.223);
+    --color-success-content: oklch(37% 0.077 168.94);
+    --color-warning: oklch(82% 0.189 84.429);
+    --color-warning-content: oklch(41% 0.112 45.904);
+    --color-error: oklch(71% 0.194 13.428);
+    --color-error-content: oklch(27% 0.105 12.094);
+  }
 }
 
 *:focus:not(:focus-visible) {
@@ -124,8 +102,8 @@ body {
   font-family: system-ui;
   font-weight: 400;
   line-height: 1.5rem;
-  background-color: var(--bgColor);
-  color: var(--baseColor);
+  background-color: var(--color-base-200);
+  color: var(--color-base-content);
 }
 
 h1,
@@ -155,12 +133,12 @@ h4 {
 }
 
 a {
-  color: var(--linkColor);
+  color: var(--color-primary);
   text-decoration: none;
 }
 
 a:hover,
 a:active {
-  color: var(--linkHoverColor);
+  color: color-mix(in oklab, var(--color-primary) 80%, #000);
 }
 
