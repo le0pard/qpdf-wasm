@@ -26,7 +26,7 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
-    background-color: var(--color-base-200);
+    background-color: var(--bg-color);
     border-radius: 0.4rem;
   }
 
@@ -35,7 +35,7 @@
   }
 
   .error-msg-text {
-    color: var(--color-base-content);
+    color: #d33682;
     font-weight: 500;
   }
 </style>
