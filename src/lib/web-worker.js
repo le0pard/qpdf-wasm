@@ -81,7 +81,7 @@ const qpdfProcessFile = (pdfBuffer, command, onProgress = () => {}) => {
 }
 
 const workerApi = {
-  async init(wasmUrl) {
+  async init() {
     qpdfInstance = await createModule()
   },
 
