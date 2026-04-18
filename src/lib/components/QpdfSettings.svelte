@@ -99,7 +99,7 @@
   })
 </script>
 
-{#await webWorkerObject.init('/qpdf.wasm')}
+{#await webWorkerObject.init()}
   <div>loading...</div>
 {:then}
 
