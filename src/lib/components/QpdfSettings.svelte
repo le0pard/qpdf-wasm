@@ -189,6 +189,7 @@
 <style>
   .form {
     margin: 0.5rem;
+    overflow-y: auto;
   }
 
   .file-list-wrapper {

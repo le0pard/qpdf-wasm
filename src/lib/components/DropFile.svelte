@@ -99,7 +99,7 @@
   #zone {
     display: block;
     width: 100%;
-    height: 15rem;
+    height: 10rem;
     cursor: pointer;
     outline: none;
     border: 1px dashed var(--emph-color);

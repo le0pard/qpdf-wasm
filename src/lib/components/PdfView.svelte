@@ -36,8 +36,38 @@
     </div>
   </div>
 {:else}
-  <div>
-    <h2>Tool</h2>
+  <div class="tool-info-container">
+    <div class="hero-section">
+      <h2>PDF Optimizer & Compressor</h2>
+      <p class="subtitle">Process your PDFs securely and locally within your browser.</p>
+    </div>
+
+    <div class="features-list">
+      <div class="feature-card border-blue">
+        <h3 class="feature-title text-blue">1. Select a File</h3>
+        <p>Drag and drop your PDF or click to browse. Password-protected files are fully supported.</p>
+      </div>
+
+      <div class="feature-card border-green">
+        <h3 class="feature-title text-green">2. Choose Processing</h3>
+        <ul class="feature-list">
+          <li><strong>Web Optimize:</strong> Enables Fast Web View for instant browser loading.</li>
+          <li><strong>Compress:</strong> Reduces file size using advanced QPDF compression.</li>
+        </ul>
+      </div>
+
+      <div class="feature-card border-yellow">
+        <h3 class="feature-title text-yellow">3. Process & Download</h3>
+        <p>Conversion happens instantly on your device via WebAssembly. No data is sent to external servers.</p>
+      </div>
+    </div>
+
+    <div class="privacy-notice">
+      <span class="lock-icon" aria-hidden="true">🔒</span>
+      <div>
+        <strong>Privacy First:</strong> Your files never leave your computer. All processing is executed safely in your browser.
+      </div>
+    </div>
   </div>
 {/if}
 
@@ -74,5 +104,103 @@
 
   .pdf-download-link:hover, .pdf-download-link:active {
     border-color: #859900;
+  }
+
+  .tool-info-container {
+    display: flex;
+    flex-direction: column;
+    padding: 2.5rem 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+    height: 100%;
+    overflow-y: auto;
+    color: var(--base-color);
+  }
+
+  .hero-section {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .hero-section h2 {
+    color: var(--emph-color);
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    color: var(--comment-color);
+    font-size: 1.1rem;
+  }
+
+  .features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .feature-card {
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .border-blue { border-top: 4px solid #268bd2; }
+  .border-green { border-top: 4px solid #859900; }
+  .border-yellow { border-top: 4px solid #b58900; }
+
+  .text-blue { color: #268bd2; }
+  .text-green { color: #859900; }
+  .text-yellow { color: #b58900; }
+
+  .feature-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .feature-card p {
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .feature-list {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  .feature-list li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+  }
+
+  .feature-list strong {
+    color: var(--emph-color);
+  }
+
+  .privacy-notice {
+    margin-top: 1rem;
+    padding: 1.25rem;
+    background-color: var(--heads-color);
+    border-left: 4px solid #2aa198;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--emph-color);
+  }
+
+  .lock-icon {
+    font-size: 1.75rem;
+    line-height: 1;
   }
 </style>
