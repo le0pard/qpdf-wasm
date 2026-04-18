@@ -88,22 +88,32 @@
     flex-shrink: 0;
     overflow: hidden;
     white-space: nowrap;
+    padding: 0.25rem;
   }
 
   .pdf-download-link {
-    font-size: 2rem;
-    padding: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: 0.75rem 1rem;
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--input-border);
-    background-color: var(--input-bg);
-    color: var(--input-color);
+    border: 2px solid #268bd2;
+    border-radius: 0.5rem;
+    background-color: transparent;
+    color: #268bd2;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
   }
 
-  .pdf-download-link:hover, .pdf-download-link:active {
-    border-color: #859900;
+  .pdf-download-link:hover,
+  .pdf-download-link:active {
+    background-color: #268bd2;
+    color: var(--bg-color);
+    box-shadow: 0 4px 12px rgba(38, 139, 210, 0.2);
+    transform: translateY(-2px);
   }
 
   .tool-info-container {

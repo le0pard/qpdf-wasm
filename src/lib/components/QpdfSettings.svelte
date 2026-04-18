@@ -321,7 +321,6 @@
     border-color: #268bd2;
     border-width: 2px;
     padding: calc(1.25rem - 1px);
-    color: #268bd2;
   }
 
   .visually-hidden:checked + .card-content .radio-check {
@@ -334,24 +333,40 @@
     transform: scale(1);
   }
 
+  .visually-hidden:checked + .card-content .card-title {
+    color: #268bd2;
+  }
+
   .submit-button {
-    font-size: 1.5rem;
-    padding: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: 0.75rem 1rem;
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--input-border);
-    background-color: var(--input-bg);
-    color: var(--input-color);
+    border: 2px solid #859900;
+    border-radius: 0.5rem;
+    background-color: transparent;
+    color: #859900;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
   }
 
-  .submit-button:hover, .submit-button:active {
-    border-color: #859900;
+  .submit-button:hover:not(:disabled),
+  .submit-button:active:not(:disabled) {
+    background-color: #859900;
+    color: var(--bg-color);
+    box-shadow: 0 4px 12px rgba(133, 153, 0, 0.2);
+    transform: translateY(-2px);
   }
 
   .submit-button:disabled {
-    background-color: var(--input-bg-disabled);
+    border-color: var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--input-bg-disabled);
+    cursor: not-allowed;
+    opacity: 0.6;
   }
 
   .progress-container {
