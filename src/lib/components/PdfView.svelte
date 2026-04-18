@@ -1,8 +1,10 @@
 <script>
+  import { onMount } from 'svelte'
   import pdfObject from 'pdfobject'
   import { humanFileSize } from '$lib/utils'
-  import { updated } from '$app/stores'
   import { pdfInfoState } from '$lib/states/pdfInfo.svelte'
+
+  let updateReady = $state(false)
 
   const embedPdf = (node, url) => {
     if (url) {
@@ -46,6 +48,24 @@
     // If no service worker is waiting or supported, just reload normally
     window.location.reload()
   }
+
+  onMount(() => {
+    if ('serviceWorker' in navigator) {
+      const handleMessage = (event) => {
+        if (event.data && event.data.type === 'UPDATE_AVAILABLE') {
+          updateReady = true
+        }
+      }
+
+      // add the listener
+      navigator.serviceWorker.addEventListener('message', handleMessage)
+
+      // return the cleanup function that Svelte will run on component unmount
+      return () => {
+        navigator.serviceWorker.removeEventListener('message', handleMessage)
+      }
+    }
+  })
 </script>
 
 {#if pdfInfoState.url}
@@ -62,7 +82,7 @@
   </div>
 {:else}
   <div class="tool-info-container">
-    {#if $updated}
+    {#if $updateReady}
       <div class="update-alert">
         <div class="update-text">
           <strong>🎉 New Update Available</strong>

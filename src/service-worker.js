@@ -9,10 +9,15 @@ const ASSETS = [
 ]
 
 self.addEventListener('install', (event) => {
-  // Create a new cache and add all files to it
   const addFilesToCache = async () => {
     const cache = await caches.open(CACHE)
     await cache.addAll(ASSETS)
+
+    // broadcast to all open tabs that a new version is downloaded and waiting
+    const clientsList = await self.clients.matchAll({ includeUncontrolled: true })
+    for (const client of clientsList) {
+      client.postMessage({ type: 'UPDATE_AVAILABLE' })
+    }
   }
 
   event.waitUntil(addFilesToCache())
