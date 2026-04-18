@@ -1,5 +1,6 @@
 <script>
   import pdfObject from 'pdfobject'
+  import { humanFileSize } from '$lib/utils'
   import { pdfInfoState } from '$lib/states/pdfInfo.svelte'
 
   const embedPdf = (node, url) => {
@@ -29,10 +30,14 @@
       use:embedPdf={pdfInfoState.url}
     ></div>
     <div class="pdf-actions">
-      <a download={pdfInfoState.name} href={pdfInfoState.url} rel="external">
-        Download ({pdfInfoState.outputBytesize} bytes)
+      <a class="pdf-download-link" download={pdfInfoState.name} href={pdfInfoState.url} rel="external">
+        Download ({humanFileSize(pdfInfoState.outputBytesize)})
       </a>
     </div>
+  </div>
+{:else}
+  <div>
+    <h2>Tool</h2>
   </div>
 {/if}
 
@@ -53,5 +58,21 @@
     flex-shrink: 0;
     overflow: hidden;
     white-space: nowrap;
+  }
+
+  .pdf-download-link {
+    font-size: 2rem;
+    padding: 0.5rem;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--input-color);
+  }
+
+  .pdf-download-link:hover, .pdf-download-link:active {
+    border-color: #859900;
   }
 </style>

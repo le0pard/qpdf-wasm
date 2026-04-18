@@ -2,6 +2,7 @@
   import { onDestroy } from 'svelte'
   import { transfer, proxy } from 'comlink'
   import DropFile from './DropFile.svelte'
+  import { humanFileSize } from '$lib/utils'
   import { filesState } from '$lib/states/files.svelte'
   import { pdfInfoState } from '$lib/states/pdfInfo.svelte'
 
@@ -46,6 +47,8 @@
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    if (isProcessing) return
+
     if (!filesState.list || filesState.list.length === 0) {
       return
     }
@@ -79,7 +82,7 @@
         pdfInfoState.url = URL.createObjectURL(blob)
         pdfInfoState.outputBytesize = result[2].byteLength
       } else {
-        errorMessage = result[2]?.toString()
+        errorMessage = 'Error to process document'
       }
     } catch(err) {
       errorMessage = err.toString()
@@ -107,7 +110,7 @@
           <ul class="file-list">
             {#each filesState.list as file, index (index)}
               <li class="file-item">
-                {file.name} ({(file.size / 1024).toFixed(1)} KB)
+                {file.name} ({humanFileSize(file.size)})
               </li>
             {/each}
           </ul>
@@ -116,19 +119,53 @@
     </DropFile>
 
     {#if isFileNeeePassword}
-      <input type="password" bind:value={pdfPassword} />
+      <div class="password-wrapper">
+        <label for="passwordField" class="password-label">Document password</label>
+        <input id="passwordField" type="password" class="password-input" autocomplete="off" bind:value={pdfPassword} />
+      </div>
     {/if}
 
-    <div>
-      <label for="linearizationRadio">Web optimize PDF file</label>
-      <input id="linearizationRadio" type="radio" name="pdfCompression" value="linearization" bind:group={pdfCompression} />
-    </div>
-    <div>
-      <label for="compressionRadio">Compress PDF file</label>
-      <input id="compressionRadio" type="radio" name="pdfCompression" value="compression" bind:group={pdfCompression} />
+    <div class="radio-card-group">
+      <label class="card-radio" for="linearizationRadio">
+        <input
+          id="linearizationRadio"
+          type="radio"
+          name="pdfCompression"
+          value="linearization"
+          bind:group={pdfCompression}
+          class="visually-hidden"
+        />
+        <div class="card-content">
+          <div class="radio-check"></div>
+          <div class="card-details">
+            <span class="card-title">Web Optimize</span>
+            <span class="card-description">Restructures file for instant web browser loading. Best for documents hosted online. Pages load without waiting for the full download</span>
+          </div>
+        </div>
+      </label>
+
+      <label class="card-radio" for="compressionRadio">
+        <input
+          id="compressionRadio"
+          type="radio"
+          name="pdfCompression"
+          value="compression"
+          bind:group={pdfCompression}
+          class="visually-hidden"
+        />
+        <div class="card-content">
+          <div class="radio-check"></div>
+          <div class="card-details">
+            <span class="card-title">Compress</span>
+            <span class="card-description">Applies maximum compression to reduce file size. Best for emails and archiving. Squeezes out extra bytes to make sharing easier</span>
+          </div>
+        </div>
+      </label>
     </div>
 
-    <button type="submit" disabled={isProcessing || filesState.list.length === 0}>{isProcessing ? 'Processing...' : 'Convert'}</button>
+    <button class="submit-button" type="submit" disabled={isProcessing || filesState.list.length === 0}>
+      {isProcessing ? 'Processing...' : 'Convert'}
+    </button>
 
     {#if isProcessing}
       <div class="progress-container">
@@ -185,6 +222,135 @@
 
   .file-item:hover {
     background-color: var(--bg-color);
+  }
+
+  .password-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+  }
+
+  .password-input {
+    font-size: 1.5rem;
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--input-color);
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  .radio-card-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+
+  .card-radio {
+    flex: 1;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .card-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 1.25rem;
+    border: 1px solid var(--emph-color);
+    border-radius: 0.5rem;
+  }
+
+  .card-radio:hover .card-content {
+    border-color: var(--input-color);
+  }
+
+  .card-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .card-description {
+    font-size: 0.9rem;
+  }
+
+  .radio-check {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    border: 2px solid var(--emph-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+
+  .radio-check::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-color: var(--bg-color);
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0);
+    transition: transform 0.2s, opacity 0.2s;
+  }
+
+  .visually-hidden:checked + .card-content {
+    border-color: #268bd2;
+    border-width: 2px;
+    padding: calc(1.25rem - 1px);
+    color: #268bd2;
+  }
+
+  .visually-hidden:checked + .card-content .radio-check {
+    border-color: #268bd2;
+    background-color: #268bd2;
+  }
+
+  .visually-hidden:checked + .card-content .radio-check::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .submit-button {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--input-color);
+  }
+
+  .submit-button:hover, .submit-button:active {
+    border-color: #859900;
+  }
+
+  .submit-button:disabled {
+    background-color: var(--input-bg-disabled);
   }
 
   .progress-container {
