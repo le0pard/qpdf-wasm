@@ -82,7 +82,7 @@
   </div>
 {:else}
   <div class="tool-info-container">
-    {#if $updateReady}
+    {#if updateReady}
       <div class="update-alert">
         <div class="update-text">
           <strong>🎉 New Update Available</strong>
