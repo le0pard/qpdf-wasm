@@ -1,6 +1,7 @@
 <script>
   import pdfObject from 'pdfobject'
   import { humanFileSize } from '$lib/utils'
+  import { updated } from '$app/stores'
   import { pdfInfoState } from '$lib/states/pdfInfo.svelte'
 
   const embedPdf = (node, url) => {
@@ -21,6 +22,30 @@
       }
     }
   }
+
+  const reloadApp = async () => {
+    if ('serviceWorker' in navigator) {
+      const registration = await navigator.serviceWorker.getRegistration()
+
+      if (registration && registration.waiting) {
+        // Listen for the new service worker to take control of the page
+        let refreshing = false
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (!refreshing) {
+            refreshing = true
+            window.location.reload()
+          }
+        })
+
+        // Tell the waiting service worker to activate immediately
+        registration.waiting.postMessage({ type: 'SKIP_WAITING' })
+        return // Exit early, the controllerchange listener will handle the reload
+      }
+    }
+
+    // Fallback: If no service worker is waiting or supported, just reload normally
+    window.location.reload()
+  }
 </script>
 
 {#if pdfInfoState.url}
@@ -37,6 +62,18 @@
   </div>
 {:else}
   <div class="tool-info-container">
+    {#if $updated}
+      <div class="update-alert">
+        <div class="update-text">
+          <strong>🎉 New Update Available</strong>
+          <span>A newer version of the tool is ready. Reload to apply.</span>
+        </div>
+        <button class="update-button" onclick={reloadApp}>
+          Reload App
+        </button>
+      </div>
+    {/if}
+
     <div class="hero-section">
       <h2>PDF Optimizer & Compressor</h2>
       <p class="subtitle">Process your PDFs securely and locally within your browser.</p>
@@ -123,6 +160,66 @@
     color: var(--bg-color);
     box-shadow: 0 4px 12px rgba(38, 139, 210, 0.2);
     transform: translateY(-2px);
+  }
+
+  .update-alert {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--input-bg);
+    border: 2px solid #b58900;
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .update-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .update-text strong {
+    color: #b58900;
+    font-size: 1.15rem;
+  }
+
+  .update-text span {
+    color: var(--comment-color);
+    font-size: 0.95rem;
+  }
+
+  .update-button {
+    background-color: #b58900;
+    color: var(--bg-color);
+    border: none;
+    border-radius: 6px;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    white-space: nowrap;
+  }
+
+  .update-button:hover,
+  .update-button:active {
+    background-color: #cb4b16;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(203, 75, 22, 0.25);
+  }
+
+  @media (max-width: 600px) {
+    .update-alert {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+
+    .update-button {
+      width: 100%;
+    }
   }
 
   .tool-info-container {
