@@ -1,38 +1,31 @@
-# sv
+# QPDF WASM - PDF Optimizer & Compressor
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+![QPDF WASM](https://img.shields.io/badge/SvelteKit-WebAssembly-orange?style=flat-square&logo=svelte)
+![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-success?style=flat-square&logo=lock)
 
-## Creating a project
+**Live Demo:** [https://qpdf-wasm.leopard.in.ua](https://qpdf-wasm.leopard.in.ua)
 
-If you're seeing this, you've probably already done this step. Congrats!
+A fast, secure, browser-based tool to optimize, compress, and decrypt PDF files. Powered by **QPDF** compiled to **WebAssembly (WASM)**, this application processes all files locally on your device via Web Workers, ensuring that your sensitive documents never leave your computer.
 
-```sh
-# create a new project in the current directory
-npx sv create
+---
 
-# create a new project in my-app
-npx sv create my-app
-```
+## ✨ Features
 
-## Developing
+* 🔒 **Privacy First (100% Local Processing):** Files are converted directly in your browser. No data is ever sent to or stored on an external server.
+* ⚡ **Web Optimize (Linearization):** Restructures PDF files to enable "Fast Web View," allowing browsers to instantly display the first page of a document without waiting for the entire file to download.
+* 🗜️ **Maximum Compression:** Applies heavy suite compression algorithms (`--object-streams=generate`, `--compression-level=9`, etc.) to significantly reduce PDF file size for archiving or emailing.
+* 🔑 **Password Decryption:** Easily unlock and process password-protected PDFs.
+* 🌗 **Solarized UI Theme:** A beautiful, responsive interface utilizing the Solarized color palette with automatic Light/Dark mode support.
+* 📱 **Split View & PDF Preview:** View your tool settings alongside an embedded preview of the finalized PDF.
+* 🌐 **Offline Capable:** Includes a Service Worker, allowing the app to function without an internet connection after the initial load.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+---
 
-```sh
-npm run dev
+## 🛠️ Tech Stack
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+* **Framework:** [SvelteKit](https://kit.svelte.dev/)
+* **Core Processing:** [QPDF](https://github.com/qpdf/qpdf) (Compiled to WebAssembly)
+* **Concurrency:** Web Workers integrated via [Comlink](https://github.com/GoogleChromeLabs/comlink)
+* **PDF Embedding:** [PDFObject](https://pdfobject.com/)
+* **Styling:** Vanilla CSS (Solarized variables)
 
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
