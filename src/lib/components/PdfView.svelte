@@ -43,7 +43,7 @@
       }
     }
 
-    // Fallback: If no service worker is waiting or supported, just reload normally
+    // If no service worker is waiting or supported, just reload normally
     window.location.reload()
   }
 </script>
