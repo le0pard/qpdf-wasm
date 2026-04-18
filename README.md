@@ -23,3 +23,6 @@ A fast, secure, browser-based tool to optimize, compress, and decrypt PDF files.
 * **PDF Embedding:** [PDFObject](https://pdfobject.com/)
 * **Styling:** Vanilla CSS (Solarized variables)
 
+# License
+
+The gem is available as open source under the terms of the MIT License
