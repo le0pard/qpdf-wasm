@@ -51,16 +51,37 @@
 
   onMount(() => {
     if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistration().then((registration) => {
+        // Lifecycle Listener: Catch updates that complete installation while the app is actively running
+        if (registration) {
+          if (registration.waiting) {
+            updateReady = true
+          }
+
+          registration.addEventListener('updatefound', () => {
+            const installingWorker = registration.installing
+            if (installingWorker) {
+              installingWorker.addEventListener('statechange', () => {
+                // If it successfully compiles into the installed lane while a previous controller exists
+                if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  updateReady = true
+                }
+              })
+            }
+          })
+        }
+      })
+
+      // PostMessage Bus Fallback: Keep immediate notifications functional
       const handleMessage = (event) => {
         if (event.data && event.data.type === 'UPDATE_AVAILABLE') {
           updateReady = true
         }
       }
 
-      // add the listener
       navigator.serviceWorker.addEventListener('message', handleMessage)
 
-      // return the cleanup function that Svelte will run on component unmount
+      // Clean up the reactive event bus listener on component unmount
       return () => {
         navigator.serviceWorker.removeEventListener('message', handleMessage)
       }
