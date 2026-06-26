@@ -1,11 +1,12 @@
-import { build, files, version } from '$service-worker'
+import { build, files, prerendered, version } from '$service-worker'
 
 const self = globalThis.self
 const CACHE = `cache-${version}`
 
 const ASSETS = [
   ...build,
-  ...files
+  ...files,
+  ...prerendered
 ]
 
 self.addEventListener('install', (event) => {
