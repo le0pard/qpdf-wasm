@@ -54,7 +54,7 @@
       navigator.serviceWorker.getRegistration().then((registration) => {
         // Lifecycle Listener: Catch updates that complete installation while the app is actively running
         if (registration) {
-          if (registration.waiting) {
+          if (registration.waiting && navigator.serviceWorker.controller) {
             updateReady = true
           }
 
@@ -74,7 +74,7 @@
 
       // PostMessage Bus Fallback: Keep immediate notifications functional
       const handleMessage = (event) => {
-        if (event.data && event.data.type === 'UPDATE_AVAILABLE') {
+        if (event.data && event.data.type === 'UPDATE_AVAILABLE' && navigator.serviceWorker.controller) {
           updateReady = true
         }
       }
