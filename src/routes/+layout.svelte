@@ -1,5 +1,6 @@
 <script>
 	import '$lib/styles/globals.css'
+	import { page } from '$app/state'
 	import { onMount } from 'svelte'
 	import { updated } from '$app/stores'
 
@@ -16,6 +17,7 @@
 </script>
 
 <svelte:head>
+	<link rel="canonical" href={`${page.url.origin}${page.url.pathname}`} />
 </svelte:head>
 
 {@render children()}

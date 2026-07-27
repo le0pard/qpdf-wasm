@@ -2,7 +2,6 @@ import js from '@eslint/js'
 import { includeIgnoreFile } from '@eslint/compat'
 import globals from 'globals'
 import svelte from 'eslint-plugin-svelte'
-import svelteConfig from './svelte.config.js'
 import { defineConfig, globalIgnores } from 'eslint/config'
 import { fileURLToPath } from 'node:url'
 
@@ -16,7 +15,6 @@ export default defineConfig([
   {
     files: [
       'src/**/*.{js,mjs,cjs}',
-      'svelte.config.js',
       'vite.config.js',
       'eslint.config.js'
     ],
@@ -29,10 +27,7 @@ export default defineConfig([
   {
     files: ['**/*.svelte', '**/*.svelte.js'],
     languageOptions: {
-      globals: globals.browser,
-      parserOptions: {
-        svelteConfig
-      }
+      globals: globals.browser
     }
   },
   {
