@@ -49,6 +49,7 @@
     onkeypress={handleHideLeftKey}
     tabindex="0"
     role="button"
+    aria-label="Split left"
     class="split-left"
     class:split-hidden={splitState.visibleRight()}
   >
@@ -59,6 +60,7 @@
     onkeypress={handleHideRightKey}
     tabindex="0"
     role="button"
+    aria-label="Split right"
     class="split-right"
     class:split-hidden={splitState.visibleLeft()}
   >

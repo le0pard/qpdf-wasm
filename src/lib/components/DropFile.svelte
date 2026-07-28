@@ -74,6 +74,7 @@
   ondragleave={handleLeave}
   onclick={onClick}
   onkeydown={onKeyDown}
+  aria-label="Drop pdf here"
   class:disabled
 >
   {#if children && hasFiles}
