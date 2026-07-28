@@ -78,7 +78,7 @@ self.addEventListener('fetch', (event) => {
 
     // `build`/`files` can always be served from the cache
     if (ASSETS.includes(sanitizedPath)) {
-      const response = await cache.match(standardizedReq)
+      const response = await cache.match(standardizedReq, { ignoreVary: true })
 
       if (response) {
         return response
@@ -99,7 +99,7 @@ self.addEventListener('fetch', (event) => {
 
       return response
     } catch (err) {
-      const response = await cache.match(standardizedReq)
+      const response = await cache.match(standardizedReq, { ignoreVary: true })
 
       if (response) {
         return response
