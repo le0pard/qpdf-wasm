@@ -1,4 +1,4 @@
-FROM emscripten/emsdk:5.0.6 AS qpdf
+FROM emscripten/emsdk:6.0.8 AS qpdf
 
 RUN apt-get update -qq && \
     apt-get install -qq --no-install-recommends autoconf git pkg-config
@@ -7,12 +7,12 @@ WORKDIR /src
 
 COPY shallow-clone.sh /usr/local/bin
 
-# zlib 1.3.1.2
-RUN shallow-clone.sh https://github.com/madler/zlib.git /src/lib/zlib 570720b0c24f9686c33f35a1b3165c1f568b96be
-# jpeg-turbo to 3.1.3
-RUN shallow-clone.sh https://github.com/ImageMagick/jpeg-turbo.git /src/lib/jpeg-turbo 39f62334a71d63ad067ec23192e38b411ee39fe7
-# qpdf version 12.3.2
-RUN shallow-clone.sh https://github.com/qpdf/qpdf.git /src/lib/qpdf a898bb3a7289d1d05789d6d3f0d5dd534943a8da
+# zlib 1.3.2
+RUN shallow-clone.sh https://github.com/madler/zlib.git /src/lib/zlib da607da739fa6047df13e66a2af6b8bec7c2a498
+# jpeg-turbo to 3.2.0
+RUN shallow-clone.sh https://github.com/ImageMagick/jpeg-turbo.git /src/lib/jpeg-turbo 8b678d394c47c5d7cef5b896dcb09085145d0d3e
+# qpdf version 12.4.1
+RUN shallow-clone.sh https://github.com/qpdf/qpdf.git /src/lib/qpdf c37f83ae468abb6cc741f43b2f6fdeb66e550ffb
 
 # first, copy files that are needed for the emscripten build, and
 # that would require a full recompile if they changed

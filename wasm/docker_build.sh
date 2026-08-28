@@ -48,7 +48,7 @@ cmake --build build -j 4
 
 mkdir -p "$ROOT/dist"
 
-emcc \
+em++ \
   $LDFLAGS \
   $CPPFLAGS \
   $CFLAGS \
