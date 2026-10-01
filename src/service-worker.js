@@ -1,12 +1,14 @@
-import { build, files, prerendered, version } from '$service-worker'
+import { self } from '$app/service-worker'
+import { version } from '$app/env'
+import { immutable, assets, prerendered } from '$app/manifest'
+import { resolve } from '$app/paths'
 
-const self = globalThis.self
 const CACHE = `cache-${version}`
 
 const ASSETS = [
-  ...build,
-  ...files,
-  ...prerendered
+  ...immutable.map((asset) => resolve(asset.path)), // the Vite output
+  ...assets.map((asset) => resolve(asset.path)),  // everything in `static`
+  ...prerendered.map((asset) => resolve(asset.path))
 ]
 
 /**

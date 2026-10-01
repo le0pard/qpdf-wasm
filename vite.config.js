@@ -7,10 +7,14 @@ export default defineConfig({
 	preprocess: [vitePreprocess()],
 	plugins: [
 		sveltekit({
+			alias: {
+				'$lib': 'src/lib'
+			},
 			compilerOptions: {
 				runes: true
 			},
 			paths: {
+				origin: 'https://qpdf-wasm.leopard.in.ua',
 				relative: false
 			},
 			adapter: adapter({
@@ -18,10 +22,7 @@ export default defineConfig({
 				assets: 'build',
 				precompress: false,
 				strict: true
-			}),
-			prerender: {
-				origin: 'https://qpdf-wasm.leopard.in.ua'
-			}
+			})
 		})
 	]
 })
