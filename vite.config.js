@@ -7,9 +7,6 @@ export default defineConfig({
 	preprocess: [vitePreprocess()],
 	plugins: [
 		sveltekit({
-			alias: {
-				'$lib': 'src/lib'
-			},
 			compilerOptions: {
 				runes: true
 			},

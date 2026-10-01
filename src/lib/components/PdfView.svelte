@@ -1,8 +1,8 @@
 <script>
   import { onMount } from 'svelte'
   import pdfObject from 'pdfobject'
-  import { humanFileSize } from '$lib/utils'
-  import { pdfInfoState } from '$lib/states/pdfInfo.svelte'
+  import { humanFileSize } from '#lib/utils'
+  import { pdfInfoState } from '#lib/states/pdfInfo.svelte'
 
   let updateReady = $state(false)
 

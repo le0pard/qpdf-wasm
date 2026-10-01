@@ -1,4 +1,4 @@
-import createModule from '$lib/vendors/qpdf'
+import createModule from '#lib/vendors/qpdf'
 import { expose, transfer } from 'comlink'
 
 let qpdfInstance = null

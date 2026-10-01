@@ -1,4 +1,4 @@
-import Worker from '$lib/web-worker?worker'
+import Worker from '#lib/web-worker?worker'
 import { wrap } from 'comlink'
 import { browser } from '$app/environment'
 

@@ -1,11 +1,11 @@
 <script>
-  import SplitView from '$lib/components/SplitView.svelte'
-  import QpdfSettings from '$lib/components/QpdfSettings.svelte'
-  import PdfView from '$lib/components/PdfView.svelte'
+  import SplitView from '#lib/components/SplitView.svelte'
+  import QpdfSettings from '#lib/components/QpdfSettings.svelte'
+  import PdfView from '#lib/components/PdfView.svelte'
 
-  import { terminateWorker } from '$lib/worker-service'
+  import { terminateWorker } from '#lib/worker-service'
   import { onDestroy } from 'svelte'
-  import { splitState } from '$lib/states/split.svelte'
+  import { splitState } from '#lib/states/split.svelte'
 
   let { webWorkerObject } = $props()
 

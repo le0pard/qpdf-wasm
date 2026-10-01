@@ -1,5 +1,5 @@
 <script>
-	import '$lib/styles/globals.css'
+	import '#lib/styles/globals.css'
 	import { page } from '$app/state'
 	import { onMount } from 'svelte'
 	import { updated } from '$app/stores'

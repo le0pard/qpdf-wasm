@@ -2,10 +2,10 @@
   import { onDestroy } from 'svelte'
   import { transfer, proxy } from 'comlink'
   import DropFile from './DropFile.svelte'
-  import { humanFileSize } from '$lib/utils'
-  import { splitState } from '$lib/states/split.svelte'
-  import { filesState } from '$lib/states/files.svelte'
-  import { pdfInfoState } from '$lib/states/pdfInfo.svelte'
+  import { humanFileSize } from '#lib/utils'
+  import { splitState } from '#lib/states/split.svelte'
+  import { filesState } from '#lib/states/files.svelte'
+  import { pdfInfoState } from '#lib/states/pdfInfo.svelte'
 
   let { webWorkerObject } = $props()
 

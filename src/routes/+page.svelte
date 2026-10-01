@@ -1,10 +1,10 @@
 <script>
   import { browser } from '$app/environment'
-  import { getWorker } from '$lib/worker-service'
+  import { getWorker } from '#lib/worker-service'
 
-  import App from '$lib/components/App.svelte'
-  import AppLoading from '$lib/components/AppLoading.svelte'
-  import Error from '$lib/components/Error.svelte'
+  import App from '#lib/components/App.svelte'
+  import AppLoading from '#lib/components/AppLoading.svelte'
+  import Error from '#lib/components/Error.svelte'
 </script>
 
 {#if browser}

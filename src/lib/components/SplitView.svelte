@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte'
-  import { splitState, screenSizeMinMedia } from '$lib/states/split.svelte'
+  import { splitState, screenSizeMinMedia } from '#lib/states/split.svelte'
 
   const onScreenSizeMinMediaChange = (e) => {
     if (e.matches) {
