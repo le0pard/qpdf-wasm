@@ -6,10 +6,10 @@ import { resolve } from '$app/paths'
 const CACHE = `cache-${version}`
 
 const ASSETS = [
-  ...immutable.map((asset) => resolve(asset.path)), // the Vite output
-  ...assets.map((asset) => resolve(asset.path)),  // everything in `static`
-  ...prerendered.map((asset) => resolve(asset.path))
-]
+  ...immutable,
+  ...assets,
+  ...prerendered
+].map((asset) => resolve(asset.path))
 
 /**
  * Normalization Helper
