@@ -1082,12 +1082,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sveltejs/adapter-static@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "@sveltejs/adapter-static@npm:4.0.0"
+"@sveltejs/adapter-static@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "@sveltejs/adapter-static@npm:4.0.1"
   peerDependencies:
     "@sveltejs/kit": ^3.0.0-next.0
-  checksum: 10/d18627ea72cebf18e9fd647efc2ff3f6a65932c07c2c0844975480b79e2618d17b19751cb87655e70d859a1d2bf1ad497bad034fd0ba86b985e9543c5ac5f8d4
+  checksum: 10/bad6e6de2ecc5e77e5298013f6601d1fd07f24a3276ee1c1d717d5f0095e6044f3ad6d0a75821269e98a507dc306c742f31a7c9556fb948db1bc050437d2dc9d
   languageName: node
   linkType: hard
 
@@ -3052,7 +3052,7 @@ __metadata:
   dependencies:
     "@eslint/compat": "npm:^2.1.1"
     "@eslint/js": "npm:^10.0.1"
-    "@sveltejs/adapter-static": "npm:^4.0.0"
+    "@sveltejs/adapter-static": "npm:^4.0.1"
     "@sveltejs/kit": "npm:^3.0.0"
     "@sveltejs/vite-plugin-svelte": "npm:^7.3.1"
     comlink: "npm:^4.4.2"
