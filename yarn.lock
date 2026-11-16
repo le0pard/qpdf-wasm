@@ -1091,9 +1091,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sveltejs/kit@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@sveltejs/kit@npm:3.0.0"
+"@sveltejs/kit@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "@sveltejs/kit@npm:3.1.1"
   dependencies:
     "@rolldown/pluginutils": "npm:^1.0.1"
     "@standard-schema/spec": "npm:^1.1.0"
@@ -1116,7 +1116,7 @@ __metadata:
       optional: true
   bin:
     svelte-kit: svelte-kit.js
-  checksum: 10/aaffb5c11a6dfc7002cc8484603d120db17aed7311106daafa2f63cd41bd82dc4888f10c5e1e462e552e030e296ae90bc7dea0e514b299de759d96c96ef5c8e8
+  checksum: 10/7d8891ff3340147669f6d4c75a74ff787fd1c35c232daa27166be6ea4288a02d488dd9795c5511969fb16ca05d6113548675617292240dbd208b5f0599c0662e
   languageName: node
   linkType: hard
 
@@ -3053,7 +3053,7 @@ __metadata:
     "@eslint/compat": "npm:^2.1.1"
     "@eslint/js": "npm:^10.0.1"
     "@sveltejs/adapter-static": "npm:^4.0.1"
-    "@sveltejs/kit": "npm:^3.0.0"
+    "@sveltejs/kit": "npm:^3.1.1"
     "@sveltejs/vite-plugin-svelte": "npm:^7.3.1"
     comlink: "npm:^4.4.2"
     eslint: "npm:^9.39.5"
